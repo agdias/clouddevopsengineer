@@ -1,0 +1,12 @@
+Parameters:
+    EnvironmentName:
+        Description: Single Parameter that we are passing with the env name.
+        Type: String
+
+Resources:
+    BastionPubNet1:
+        Type: AWS::EC2:Instance
+        Properties:
+            AvailabilyZone: !Select [ 0, !GetAZs '' ]
+            ImageId: ami-0d1cd67c26f5fca19
+            InstanceType: t2.micro
