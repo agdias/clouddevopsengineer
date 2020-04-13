@@ -1,4 +1,0 @@
-
-ROLLBACK_IN_PROGRESS
-Status reason
-The following resource(s) failed to create: [VPC]. . Rollback requested by user.
