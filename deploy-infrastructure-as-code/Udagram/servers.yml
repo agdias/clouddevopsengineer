@@ -8,6 +8,13 @@ Parameters:
         Type: String
 
 Resources:
+
+   
+
+
+           
+            
+            
     
 
     LBSecGroup:
@@ -63,11 +70,13 @@ Resources:
     WebAppLaunchConfig:
         Type: AWS::AutoScaling::LaunchConfiguration
         Properties:
-            UserData:
-                Fn::Base64: !Sub |
+            UserData: !Base64
+                'Fn::Sub': |
                     #!/bin/sh
                     apt-get update -y
-                    apt-get install apache2 -y
+                    apt-get install -y apache2 -y
+                    apt-get install awscli -y
+                    aws s3 cp s3://cdend-udagram/udacity.zip /home/ubuntu/
                     cd /var/www/html
                     # you should have the index file before starting apache
                     echo "Udacity Demo Web Server Up and Running!" > index.html
@@ -75,6 +84,7 @@ Resources:
                     systemctl start apache2.service
 
             ImageId: ami-0d1cd67c26f5fca19
+            IamInstanceProfile: AZ-S3-Read-Only
             InstanceType: t2.medium
             KeyName: udagram-priv
             BlockDeviceMappings:
@@ -95,6 +105,8 @@ Resources:
             MaxSize: '2'
             TargetGroupARNs:
                 - Ref: WebAppTargetGroup
+
+
 
 
 
