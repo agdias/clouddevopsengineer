@@ -74,13 +74,11 @@ Resources:
                 'Fn::Sub': |
                     #!/bin/sh
                     apt-get update -y
-                    apt-get install -y apache2 -y
-                    apt-get install awscli -y
+                    apt-get install -y apache2
+                    apt install -y  awscli
                     aws s3 cp s3://cdend-udagram/udacity.zip /home/ubuntu/
                     cd /var/www/html
-                    # you should have the index file before starting apache
-                    echo "Udacity Demo Web Server Up and Running!" > index.html
-                    echo "Test from Elastic Load balancer" > teste.html
+                   
                     systemctl start apache2.service
 
             ImageId: ami-0d1cd67c26f5fca19
