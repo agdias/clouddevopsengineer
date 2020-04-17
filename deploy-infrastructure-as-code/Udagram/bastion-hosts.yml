@@ -5,8 +5,10 @@ Parameters:
 
 Resources:
     BastionPubNet1:
-        Type: AWS::EC2:Instance
+        Type: AWS::EC2::Instance
         Properties:
-            AvailabilyZone: !Select [ 0, !GetAZs '' ]
+            AvailabilityZone: !Select [ 0, !GetAZs '' ]
             ImageId: ami-0d1cd67c26f5fca19
             InstanceType: t2.micro
+            SubnetId: 
+                Fn::ImportValue; !Sub "${EnvironmentName}-PUB1-SN"
