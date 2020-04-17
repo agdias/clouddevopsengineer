@@ -9,14 +9,6 @@ Parameters:
 
 Resources:
 
-   
-
-
-           
-            
-            
-    
-
     LBSecGroup:
         Type: AWS::EC2::SecurityGroup
         Properties:
@@ -74,11 +66,9 @@ Resources:
                 'Fn::Sub': |
                     #!/bin/sh
                     apt-get update -y
-                    apt-get install -y apache2
-                    apt install -y  awscli
+                    apt-get install -y apache2 unzip awscli
                     aws s3 cp s3://cdend-udagram/udacity.zip /home/ubuntu/
-                    cd /var/www/html
-                   
+                    unzip  -o -d /var/www/html /home/ubuntu/udacity.zip
                     systemctl start apache2.service
 
             ImageId: ami-0d1cd67c26f5fca19
