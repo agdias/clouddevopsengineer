@@ -1,7 +1,3 @@
-#https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Scenario2.html
-# https://aws.amazon.com/premiumsupport/knowledge-center/instance-vpc-troubleshoot/
-
-
 Parameters:
     EnvironmentName:
         Description: Single Parameter that we are passing with the env name.
@@ -29,9 +25,6 @@ Resources:
               ToPort: 65535
               CidrIp: 0.0.0.0/0
 
-                  
-
-
     WebServerSecGroup:
         Type: AWS::EC2::SecurityGroup
         Properties:
@@ -57,8 +50,6 @@ Resources:
                   ToPort: 65535
                   CidrIp: 0.0.0.0/0
 
- 
-    
     WebAppLaunchConfig:
         Type: AWS::AutoScaling::LaunchConfiguration
         Properties:
@@ -73,8 +64,8 @@ Resources:
 
             ImageId: ami-0d1cd67c26f5fca19
             IamInstanceProfile: AZ-S3-Read-Only
-            InstanceType: t2.medium
-            KeyName: udagram-priv
+            InstanceType: t3.medium
+            # KeyName: udagram-priv
             BlockDeviceMappings:
                 - DeviceName: "/dev/sdk"
                   Ebs:
@@ -89,18 +80,10 @@ Resources:
                     !Sub "${EnvironmentName}-PRIV-NETS"
             LaunchConfigurationName: 
                 Ref:  WebAppLaunchConfig
-            MinSize: '1'
-            MaxSize: '2'
+            MinSize: '2'
+            MaxSize: '4'
             TargetGroupARNs:
-                - Ref: WebAppTargetGroup
-
-
-
-
-
-
-            
-           
+                - Ref: WebAppTargetGroup  
           
     WebAppLB:
         Type: AWS::ElasticLoadBalancingV2::LoadBalancer
@@ -111,9 +94,6 @@ Resources:
           SecurityGroups:
           - Ref: LBSecGroup
       
-          
-
-   
     Listener:
         Type: AWS::ElasticLoadBalancingV2::Listener
         Properties:
@@ -125,8 +105,6 @@ Resources:
                 Ref: WebAppLB
             Port: '80'
             Protocol: HTTP
-
-    
 
     ALBListenerRule:
       Type: AWS::ElasticLoadBalancingV2::ListenerRule
