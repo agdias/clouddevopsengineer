@@ -1,7 +1,0 @@
-4 servers
-  2 cores
-    4G RAM
-    SO: ubuntu18
-    HD: 10GB each
-
-Lauch configuration must be used by autoscaling groups
