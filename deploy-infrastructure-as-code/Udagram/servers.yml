@@ -28,7 +28,8 @@ Resources:
     WebServerSecGroup:
         Type: AWS::EC2::SecurityGroup
         Properties:
-            GroupDescription: Allow inbound http traffic
+            GroupDescription: Allow inbound htls
+            tp traffic
             VpcId: 
                 Fn::ImportValue:
                     !Sub ${EnvironmentName}-VPCID
@@ -65,7 +66,6 @@ Resources:
             ImageId: ami-0d1cd67c26f5fca19
             IamInstanceProfile: AZ-S3-Read-Only
             InstanceType: t3.medium
-            # KeyName: udagram-priv
             BlockDeviceMappings:
                 - DeviceName: "/dev/sdk"
                   Ebs:
@@ -132,5 +132,7 @@ Resources:
             VpcId:
                 Fn::ImportValue:
                     Fn::Sub: "${EnvironmentName}-VPCID"
+
+Outputs:
                            
         
